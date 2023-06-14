@@ -7,8 +7,8 @@ onMounted(() => setTimeout(() => {
 </script>
 
 <template>
-      <div class="h-screen w-screen bg-background text-white flex items-center justify-center">
-        <h1>Hello world</h1>
-        <p>{{ foo }}</p>
+  <div class="h-screen w-screen bg-background text-white flex items-center justify-center">
+    <h1>Hello world</h1>
+    <p>{{ foo }}</p>
   </div>
 </template>
