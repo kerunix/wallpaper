@@ -3,11 +3,15 @@ const date = computed(() => new Intl.DateTimeFormat('fr-FR').format(new Date()))
 const time = ref('')
 
 onMounted(() => setInterval(() => {
-  const hour = new Date().getHours()
+  const hours = new Date().getHours()
   const minutes = new Date().getMinutes()
   const seconds = new Date().getSeconds()
 
-  time.value = `${hour}:${minutes}:${seconds}`
+  const paddedHours = hours > 10 ? hours : `0${hours}`
+  const paddedMinutes = minutes > 10 ? minutes : `0${minutes}`
+  const paddedSeconds = seconds > 10 ? seconds : `0${seconds}`
+
+  time.value = `${paddedHours}:${paddedMinutes}:${paddedSeconds}`
 }, 1000))
 </script>
 
