@@ -8,9 +8,9 @@ onMounted(() => setInterval(() => {
   const minutes = date.getMinutes()
   const seconds = date.getSeconds()
 
-  const paddedHours = hours > 10 ? hours : `0${hours}`
-  const paddedMinutes = minutes > 10 ? minutes : `0${minutes}`
-  const paddedSeconds = seconds > 10 ? seconds : `0${seconds}`
+  const paddedHours = hours >= 10 ? hours : `0${hours}`
+  const paddedMinutes = minutes >= 10 ? minutes : `0${minutes}`
+  const paddedSeconds = seconds >= 10 ? seconds : `0${seconds}`
 
   time.value = `${paddedHours}:${paddedMinutes}:${paddedSeconds}`
 }, 1000))
