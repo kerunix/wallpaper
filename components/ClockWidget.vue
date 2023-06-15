@@ -30,6 +30,6 @@ onMounted(() => setInterval(() => {
 </script>
 
 <template>
-  <span class="text-lime-600 text-7xl">{{ date }}</span>
-  <span class="text-pink-600 text-6xl">{{ time }}</span>
+  <span class="text-pink-600 text-3xl">{{ time }}</span>
+  <span class="text-lime-600 text-xl">{{ date }}</span>
 </template>

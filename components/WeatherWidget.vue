@@ -30,11 +30,8 @@ interface HourlyData {
 import { DateTime } from 'luxon'
 
 
-const { data } = useFetch<WeatherData>('https://api.open-meteo.com/v1/forecast?latitude=43.60&longitude=1.44&hourly=temperature_2m,relativehumidity_2m,precipitation_probability,precipitation')
-
-function showDay(date: string, previousDate: string) {
-  return !DateTime.fromISO(date).hasSame(DateTime.fromISO(previousDate), 'day')
-}
+const url = 'https://api.open-meteo.com/v1/forecast?latitude=43.60&longitude=1.44&hourly=temperature_2m,relativehumidity_2m,precipitation_probability,precipitation&forecast_days=1';
+const { data } = useFetch<WeatherData>(url)
 
 function formatISODate(date: string, format: string) {
   return DateTime.fromISO(date).setLocale('fr').toFormat(format)
@@ -57,18 +54,13 @@ function getIconName(weatherData: HourlyData['precipitation_probability'][number
   <div v-if="!data">No weather data</div>
   <template v-else>
     <div v-for="(hour, index) in data.hourly.time" class="p-1 flex flex-col odd:bg-pink">
-      <span v-if="showDay(hour, data.hourly.time[index - 1])" class="text-xl font-bold">
-        {{ formatISODate(hour, 'dd/MM') }}
-      </span>
-      <span v-else class="sr-only" />
       <div class="flex items-center justify-between">
-        <span class="text-gray-50 font-thin">{{ formatISODate(hour, 'hh:mm') }}</span>
+        <span class="text-gray-50 text-sm">{{ formatISODate(hour, 'HH:mm') }}</span>
         <div class="flex items-center space-x-3">
           <Icon :name="getIconName(data.hourly.precipitation_probability[index])" color="white" size="24px" />
-          <span>{{ data.hourly.temperature_2m[index] }}°</span>
+          <span class="text-sm">{{ data.hourly.temperature_2m[index].toFixed() }}°</span>
         </div>
       </div>
-
     </div>
   </template>
 </template>
