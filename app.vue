@@ -1,41 +1,19 @@
-<script setup lang="ts">
-const date = computed(() => new Intl.DateTimeFormat('fr-FR').format(new Date()))
-const time = ref('')
-
-onMounted(() => setInterval(() => {
-  const date = new Date()
-  const hours = date.getHours()
-  const minutes = date.getMinutes()
-  const seconds = date.getSeconds()
-
-  const paddedHours = hours >= 10 ? hours : `0${hours}`
-  const paddedMinutes = minutes >= 10 ? minutes : `0${minutes}`
-  const paddedSeconds = seconds >= 10 ? seconds : `0${seconds}`
-
-  time.value = `${paddedHours}:${paddedMinutes}:${paddedSeconds}`
-}, 1000))
-</script>
-
 <template>
-  <div class="h-screen w-screen bg-background text-white grid grid-cols-8 gap-12 p-20">
-    <div class="col-span-1 rounded-sm h-60"></div>
-    <div class="col-span-1 rounded-sm h-60"></div>
-    <div class="col-span-1 rounded-sm h-60"></div>
-    <div class="col-span-1 rounded-sm h-60"></div>
-    <div class="col-span-1 rounded-sm h-60"></div>
-    <div class="col-span-1 rounded-sm h-60 flex flex-col space-y-11">
-      <span class="text-green text-7xl">{{ date }}</span>
-      <span class="text-pink text-6xl">{{ time }}</span>
+  <div class="h-screen w-screen bg-gray-800 text-white grid grid-cols-8 gap-12 p-20">
+    <div class="h-full col-span-1 rounded-sm flex flex-col overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-700">
+      <WeatherWidget />
     </div>
     <div class="col-span-1 rounded-sm h-60"></div>
     <div class="col-span-1 rounded-sm h-60"></div>
     <div class="col-span-1 rounded-sm h-60"></div>
     <div class="col-span-1 rounded-sm h-60"></div>
+    <div class="col-span-1 rounded-sm h-60 flex flex-col space-y-11">
+      <!-- Prevent hydration mismatches -->
+      <ClientOnly>
+        <ClockWidget />
+      </ClientOnly>
+    </div>
     <div class="col-span-1 rounded-sm h-60"></div>
-    <div class="col-span-1 rounded-sm h-60"></div>
-    <div class="col-span-1 rounded-sm h-60"></div>
-    <div class="col-span-1 rounded-sm h-60"></div>
-    <div class="col-span-1 rounded-sm h-60"></div>
-    <div class="col-span-1 rounded-sm h-60"></div>
+
   </div>
 </template>
